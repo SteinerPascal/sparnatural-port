@@ -3,6 +3,7 @@ import UiuxConfig from "../../../../../../../configs/fixed-configs/UiuxConfig";
 import { SelectedVal } from "../../../../../../sparql/ISparJson";
 import HTMLComponent from "../../../../../HtmlComponent";
 import { AbstractWidget, ValueType, WidgetValue } from "./AbstractWidget";
+import "jstree";
 
 require("jstree/dist/themes/default/style.min.css");
 
@@ -20,18 +21,18 @@ export class TreeWidget extends AbstractWidget {
   langSearch: any;
   IdCriteriaGroupe: any;
 
-  itc_obj: any;
   jsTree: any;
   value: TreeWidgetValue;
 
   // html content
   button: any;
-  displayLayer: any;
+  displayLayer: JQuery<HTMLElement>;
   hiddenInput: any;
 
   startClassVal: SelectedVal;
   objectPropVal: SelectedVal;
   endClassVal: SelectedVal;
+  settings: any;
 
   constructor(
     parentComponent: any,
@@ -52,6 +53,7 @@ export class TreeWidget extends AbstractWidget {
     );
     this.loaderHandler = loaderHandler;
     this.langSearch = langSearch;
+    this.settings = settings;
     // TODO : remove
     this.IdCriteriaGroupe = "id";
 
@@ -98,9 +100,6 @@ export class TreeWidget extends AbstractWidget {
     var startClassGroup_value = this.startClassVal.type;
     var endClassGroup_value = this.endClassVal.type;
     var ObjectPropertyGroup_value = this.objectPropVal.type;
-
-    var id_inputs = this.IdCriteriaGroupe;
-    this.itc_obj = this.ParentComponent;
 
     var self = this;
     var loaderHandler = this.loaderHandler;
@@ -202,7 +201,7 @@ export class TreeWidget extends AbstractWidget {
     };
 
     // this.jsTree = $("#ecgrw-" + id_inputs + "-display").jstree(options);
-    this.jsTree = this.displayLayer.jstree(options);
+    this.jsTree = this.displayLayer.find("#ecgrw-"+this.IdCriteriaGroupe+"-display").jstree(options);
 
     this.button.on("click", { arg1: this }, this.onClickDisplay);
     //disable/enable on max selction
@@ -263,7 +262,7 @@ export class TreeWidget extends AbstractWidget {
       }
     }
 
-    if (this_.jsTree.jstree().get_top_checked().length >= this.settings.maxOr) {
+    if (this_.jsTree.jstree().get_top_checked().length >= this_.settings.maxOr) {
       for (var i = 0; i < items.length; i++) {
         var id = $(items[i]).attr("id");
         if (selecteds.indexOf(id) == -1) {
@@ -297,7 +296,13 @@ export class TreeWidget extends AbstractWidget {
   };
 
   onClickDisplay = function (e: any) {
-    this.displayLayer.show();
+    let this_ = e.data.arg1;
+    this_.displayLayer.show();
+  };
+
+  onClickClose = function (e: any) {
+    let this_ = e.data.arg1;
+    this_.displayLayer.hide();
   };
 
   onClickCancel = function (e: any) {
@@ -307,12 +312,8 @@ export class TreeWidget extends AbstractWidget {
 
   onClickSelect = function (e: any) {
     let this_ = e.data.arg1;
-    this.displayLayer.hide();
-    $(this_.itc_obj).trigger("change");
-  };
-
-  onClickClose = function (e: any) {
-    this.displayLayer.hide();
+    this_.displayLayer.hide();
+    $(this_.ParentComponent).trigger("change");
   };
 
   getValue = function () {

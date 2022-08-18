@@ -38,9 +38,9 @@ export class AutoCompleteWidget extends AbstractWidget {
   render() {
     super.render();
     let inputHtml = $(`<input class="autocompleteinput"/>`);
-    let listHtml = $(`<input class="inputvalue" type="hidden"/>`);
+    let hiddenInput = $(`<input class="inputvalue" type="hidden"/>`);
     this.html.append(inputHtml);
-    this.html.append(listHtml);
+    this.html.append(hiddenInput);
 
     var isMatch = this.autocompleteHandler.enableMatch(
       this.startClassVal.type,
@@ -102,7 +102,7 @@ export class AutoCompleteWidget extends AbstractWidget {
             },
           };
           inputHtml.val(autocompleteValue.value.label);
-          listHtml.val(autocompleteValue.value.uri).trigger("change");
+          hiddenInput.val(autocompleteValue.value.uri).trigger("change");
           this.renderWidgetVal(autocompleteValue);
         },
       },
