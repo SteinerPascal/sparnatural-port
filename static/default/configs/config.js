@@ -175,7 +175,9 @@ export default {
         { "@value": "Location", "@language": "en" },
         { "@value": "Location", "@language": "fr" },
       ],
-      faIcon: "fas fa-map-marked-alt"
+      faIcon: "fas fa-map-marked-alt",
+      defaultLabelProperty:
+      "http://www.opengis.net/ont/geosparql#asWKT",
     },
     {
       "@id": "http://labs.sparna.fr/sparnatural-demo-dbpedia/onto#Text",
@@ -250,7 +252,7 @@ export default {
     },
     {
       "@id":
-        "http://labs.sparna.fr/sparnatural-demo-dbpedia/onto#hasLocation",
+        "http://www.opengis.net/ont/geosparql#hasLocation",
       "@type": "ObjectProperty",
       subPropertyOf: "sparnatural:NonSelectableProperty",
       label: [
@@ -530,6 +532,20 @@ BIND(true AS ?hasChildren)
       ],
       enableOptional: true,
       sparqlString: "rdfs:label",
+      range: "http://labs.sparna.fr/sparnatural-demo-dbpedia/onto#Text",
+    },
+    {
+      "@id":
+        "http://www.opengis.net/ont/geosparql#asWKT",
+      "@type": "ObjectProperty",
+      subPropertyOf: "sparnatural:NonSelectableProperty",
+      label: [
+        { "@value": "name", "@language": "en" },
+        { "@value": "nom", "@language": "fr" },
+      ],
+      enableOptional: true,
+      varName: 'awkt',
+      sparqlString: "<http://www.opengis.net/ont/geosparql#asWKT>",
       range: "http://labs.sparna.fr/sparnatural-demo-dbpedia/onto#Text",
     },
     {

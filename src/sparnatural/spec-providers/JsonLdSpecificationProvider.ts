@@ -394,6 +394,11 @@ export default class JsonLdSpecificationProvider implements ISpecProvider {
     return sparql;
   };
 
+  readDefaultLblVar(uri:string){
+    const ressource = this._getResourceById(uri)
+    return ressource?.varName
+  }
+
   readRange = function (objectProperty: string) {
     var propertyEntity = this._getResourceById(objectProperty);
     if (propertyEntity != null) {

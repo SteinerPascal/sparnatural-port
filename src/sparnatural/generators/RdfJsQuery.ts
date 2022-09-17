@@ -3,7 +3,6 @@ import { Language, Order } from "./ISparJson";
 import { OptionTypes } from "../components/builder-section/groupwrapper/criteriagroup/optionsgroup/OptionsGroup";
 import ISpecProvider from "../spec-providers/ISpecProviders";
 import {
-  GroupPattern,
   IriTerm,
   OptionalPattern,
   Ordering,
@@ -120,8 +119,6 @@ export default class RdfJsGenerator {
     const andPtrn = grpWrapper.andSibling
       ? this.#processGrpWrapper(grpWrapper.andSibling, false, true)
       : null;
-
-       
    
     const widgetComponent:AbstractWidget | null | undefined = grpWrapper.CriteriaGroup.EndClassGroup?.editComponents?.widgetWrapper?.widgetComponent
     //get the infromation from the widget if there are widgetvalues selected

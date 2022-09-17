@@ -465,6 +465,11 @@ export class RDFSpecificationProvider implements ISpecProvider {
     return this._readClassesInRangeOfProperty(propertyId);
   }
 
+  readDefaultLblVar(uri:string){
+    let ressource = this._readAsResource(uri, 'varName')
+    return ressource[0]
+  }
+
   _readDatasourceAnnotationProperty(
     propertyOrClassId: any,
     datasourceAnnotationProperty: any

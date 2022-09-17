@@ -88,9 +88,11 @@ class EndClassGroup extends HTMLComponent {
   // see: https://docs.sparnatural.eu/OWL-based-configuration#classes-configuration-reference
   #addDefaultLblVar(type:string,varName:string) {
     const lbl = this.specProvider.getDefaultLabelProperty(type)
+
     if(lbl) {
+      const varName = this.specProvider.readDefaultLblVar(lbl)
+      varName ? this.defaultLblVar.variable = `?${varName}` : this.defaultLblVar.variable = `${this.getVarName()}_label`
       this.defaultLblVar.type = lbl
-      this.defaultLblVar.variable = `${varName}_label`
     }
   }
 
