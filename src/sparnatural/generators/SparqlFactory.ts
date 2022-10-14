@@ -50,6 +50,25 @@ export default class SparqlFactory {
         };
     }
 
+    static buildFilterRegex(texte: Literal, variable: Variable): FilterPattern {			
+      return {
+        type: "filter",
+        expression: {
+          type: "operation",
+          operator: "regex",
+          args: [	
+            {
+              type: "operation",
+              operator: "str",
+              args: [ variable ]
+            },
+            texte,
+            "\"i\""
+          ]
+        }
+      }
+    }
+
     static buildOptionalPattern(patterns: Pattern[]): OptionalPattern {
         return {
           type: "optional",
